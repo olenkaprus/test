@@ -1,0 +1,1434 @@
+{
+	"info": {
+		"_postman_id": "238c4843-4daa-463b-92e8-baee08dec2d5",
+		"name": "Lists_clickUp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "10932028",
+		"_collection_link": "https://red-station-576272.postman.co/workspace/clickup~bfe6dadd-fcbb-4b6b-ba77-a7fc85db2f2b/collection/10932028-238c4843-4daa-463b-92e8-baee08dec2d5?action=share&source=collection_link&creator=10932028"
+	},
+	"item": [
+		{
+			"name": "Get all lists",
+			"item": [
+				{
+					"name": "Create list1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"list1_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const Ajv = require('ajv');\r",
+									"const ajv = new Ajv();\r",
+									"\r",
+									"var schema = {\r",
+									"  type: \"object\",\r",
+									"  properties: {\r",
+									"    lists: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          id: { type: \"string\" },\r",
+									"          name: { type: \"string\" },\r",
+									"          orderindex: { type: \"integer\" },\r",
+									"          content: { type: \"string\" }\r",
+									"        },\r",
+									"        required: [\"id\", \"name\"]\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"const validate = ajv.compile(schema);\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"   const valid = validate(response);\r",
+									"   pm.expect(valid, JSON.stringify(validate.errors)).to.be.true;\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List {{$randomFirstName}}\",\r\n    \"content\":\"my list content\",\r\n    \"due_date\":\"{{$randomInt}}\",\r\n    \"due_date_time\":\"{{$randomBoolean}}\",\r\n    \"priority\":\"{{$randomInt}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Create list 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"list2_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List {{$randomFirstName}}\",\r\n    \"content\":\"my list content\",\r\n    \"due_date\":\"{{$randomInt}}\",\r\n    \"due_date_time\":\"{{$randomBoolean}}\",\r\n    \"priority\":\"{{$randomInt}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists/valid FolderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// Removed unnecessary semicolon\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const Ajv = require('ajv');\r",
+									"const ajv = new Ajv();\r",
+									"\r",
+									"var schema = {\r",
+									"  type: \"object\",\r",
+									"  properties: {\r",
+									"    lists: {\r",
+									"      type: \"array\",\r",
+									"      items: {\r",
+									"        type: \"object\",\r",
+									"        properties: {\r",
+									"          id: { type: \"string\" },\r",
+									"          name: { type: \"string\" },\r",
+									"          orderindex: { type: \"integer\" },\r",
+									"          content: { type: \"string\" }\r",
+									"        },\r",
+									"        required: [\"id\", \"name\"]\r",
+									"      }\r",
+									"    }\r",
+									"  }\r",
+									"};\r",
+									"\r",
+									"const validate = ajv.compile(schema);\r",
+									"const response = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Schema is valid\", function () {\r",
+									"   const valid = validate(response);\r",
+									"   pm.expect(valid, JSON.stringify(validate.errors)).to.be.true;\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"console.log(jsonData.lists)\r",
+									"\r",
+									"// Fixed the forEach loop to iterate over lists instead of goals\r",
+									"jsonData.lists.forEach(item=>{\r",
+									"    console.log(item.id)\r",
+									"})\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists/invalid FolderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/folder/90dfhdfh/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists/invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "fdgdfhdfhfdhfg436346",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete list1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list1_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete list2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list2_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Lists/no Lists",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "apikey",
+				"apikey": {
+					"value": "{{my_token}}",
+					"key": "Authorization"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Create List",
+			"item": [
+				{
+					"name": "Create List/valid folderId",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"list_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "List created",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Create list / invalid folder id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List {{$randomFirstName}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Create list/ empty name",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Create list/invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "3453465345",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get List",
+			"item": [
+				{
+					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"listGetList_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List {{$randomInt}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Get List/ valid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/list/{{listGetList_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get List/ invalid Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/list/invalid12345"
+					},
+					"response": []
+				},
+				{
+					"name": "Get List/ invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "123414124",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/list/{{listGetList_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{listGetList_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Update List",
+			"item": [
+				{
+					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"listUpdateList_id\", jsonData.id);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"List {{$randomFirstName}}\",\r\n  \"content\": \"New List Content\",\r\n \"due_date\": 1567780450202,\r\n  \"due_date_time\": false,\r\n  \"priority\": 1,\r\n  \"status\": \"red\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Update List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"var jsonData = pm.response.json();\r",
+									"\r",
+									"pm.test(\"Name is updated\", function () {\r",
+									"    pm.expect(jsonData.name).to.eql(pm.collectionVariables.get(\"ListNameUpdate\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"content is updated\", function () {\r",
+									"    pm.expect(jsonData.content).to.eql(pm.collectionVariables.get(\"UpdatedContent\"));\r",
+									"});\r",
+									"\r",
+									"console.log(\"after\")"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var name = pm.variables.replaceIn('{{$randomFirstName}}')\r",
+									"console.log(\"This is my generated name\")\r",
+									"console.log(name)\r",
+									"pm.collectionVariables.set(\"ListNameUpdate\", name);\r",
+									"\r",
+									"const city = pm.variables.replaceIn(\"{{$randomCity}}\");\r",
+									"pm.collectionVariables.set(\"UpdatedContent\", city);\r",
+									"console.log(\"Random city set as content:\", city);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"{{ListNameUpdate}}\",\r\n  \"content\": \"{{UpdatedContent}}\",\r\n  \"due_date\": {{$randomInt}},\r\n  \"due_date_time\": {{$randomBoolean}},\r\n  \"priority\": {{$randomInt}},\r\n  \"assignee\": \"none\",\r\n  \"status\": \"red\",\r\n  \"unset_status\": {{$randomBoolean}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/list/{{listUpdateList_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Get updated List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"pm.test(\"List name is updated\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.name).to.eql(pm.variables.get(\"ListNameUpdate\"));\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/list/{{listUpdateList_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Update list/ invalid list Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated {{$randomFirstName}}\",\r\n  \"content\": \"Updated {{$randomCity}}\",\r\n  \"due_date\": {{$randomInt}},\r\n  \"due_date_time\": {{$randomBoolean}},\r\n  \"priority\": {{$randomInt}},\r\n  \"assignee\": \"none\",\r\n  \"status\": \"red\",\r\n  \"unset_status\": {{$randomBoolean}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/list/1222"
+					},
+					"response": []
+				},
+				{
+					"name": "Update list/ invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "3242354n23kj5",
+								"key": "Authorization"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Updated {{$randomFirstName}}\",\r\n  \"content\": \"Updated {{$randomCity}}\",\r\n  \"due_date\": {{$randomInt}},\r\n  \"due_date_time\": {{$randomBoolean}},\r\n  \"priority\": {{$randomInt}},\r\n  \"assignee\": \"none\",\r\n  \"status\": \"red\",\r\n  \"unset_status\": {{$randomBoolean}}\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/list/{{listUpdateList_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{listUpdateList_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List is marked as deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.deleted).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/list/{{listUpdateList_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Delete List",
+			"item": [
+				{
+					"name": "Create List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"list1_delete_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List {{$randomInt}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/ invalid list Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/123"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/ invalid token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "123",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list1_delete_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/ without token",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 400\", function () {\r",
+									"    pm.response.to.have.status(400);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list1_delete_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list1_delete_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "List is deleted",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"List is marked as deleted\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.deleted).to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "GET",
+						"header": [],
+						"url": "{{url}}/list/{{list1_delete_id}}"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete/ same list twice",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": "{{url}}/list/{{list1_delete_id}}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pre and after scripts",
+			"item": [
+				{
+					"name": "New Request",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let jsonData = pm.response.json();\r",
+									"pm.collectionVariables.set(\"PreScript_id\", jsonData.id);\r",
+									"\r",
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"const url = pm.environment.get(\"url\");\r",
+									"const listId = pm.collectionVariables.get(\"PreScript_id\");\r",
+									"const token = pm.environment.get(\"my_token\");\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: `${url}/list/${listId}`,\r",
+									"    method: \"DELETE\",\r",
+									"    header: {\r",
+									"        \"Authorization\": token\r",
+									"    }\r",
+									"    }, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(err);\r",
+									"    } else {\r",
+									"        var jsonData =\r",
+									"        res.json();\r",
+									"       }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"const url = pm.environment.get(\"url\");\r",
+									"const token = pm.environment.get(\"my_token\");\r",
+									"const name = pm.variables.replaceIn(\"{{randomFirstName}}\");\r",
+									"\r",
+									"pm.sendRequest({\r",
+									"    url: `${url}/folder/90156685861/list`,\r",
+									"    method: \"POST\",\r",
+									"    header: {\r",
+									"        \"Authorization\": token,\r",
+									"        \"Content-Type\": \"application/json\"\r",
+									"    },\r",
+									"    body: {\r",
+									"        mode: \"raw\",\r",
+									"        raw: JSON.stringify({ name: `List ${name}` })\r",
+									"    }\r",
+									"}, function (err, res) {\r",
+									"    if (err) {\r",
+									"        console.error(err);\r",
+									"    } else {\r",
+									"        var jsonData =\r",
+									"        res.json();\r",
+									"       }\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": {
+								"value": "{{my_token}}",
+								"key": "Authorization"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"List {{$randomFirstName}}\",\r\n    \"content\":\"my list content\",\r\n    \"due_date\":\"{{$randomInt}}\",\r\n    \"due_date_time\":\"{{$randomBoolean}}\",\r\n    \"priority\":\"{{$randomInt}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{url}}/folder/90156685861/list"
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "list_id",
+			"value": ""
+		},
+		{
+			"key": "list1_id",
+			"value": ""
+		},
+		{
+			"key": "list2_id",
+			"value": ""
+		},
+		{
+			"key": "listGetList_id",
+			"value": ""
+		},
+		{
+			"key": "listUpdateList_id",
+			"value": ""
+		},
+		{
+			"key": "list1_delete_id",
+			"value": ""
+		},
+		{
+			"key": "ListNameUpdate",
+			"value": ""
+		},
+		{
+			"key": "PreScript_id",
+			"value": ""
+		},
+		{
+			"key": "UpdatedContent",
+			"value": ""
+		}
+	]
+}
